@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using Udlejningsfirma;
 
 namespace Console_Menu
 {
-    class Program
+    class Menu
     {
-        private static int index = 0;
-
         private static void Main(string[] args)
         {
             List<string> MainMenu = new List<string>()
@@ -28,18 +27,17 @@ namespace Console_Menu
 
             while (true)
             {
-                string selectedMainMenu = TegnMenu(MainMenu);
+                string selectedMainMenu = MenuOpsætning.TegnMenu(MainMenu);
                 if (selectedMainMenu == "KundeHåndtering")
                 {
+                    Console.WriteLine("Vælg et område:\n");
                     while (true)
                     {
-                        string selectedKundeHåndteringsMenu = TegnMenu(KundeHåndteringsMenu);
+                        string selectedKundeHåndteringsMenu = MenuOpsætning.TegnMenu(KundeHåndteringsMenu);
+                        Console.WriteLine("Vælg et område:\n");
                         if (selectedKundeHåndteringsMenu == "Sjælland")
                         {
-                            Console.Clear();
-                            Console.WriteLine("1");
-                            Console.ReadLine();
-                            Console.Clear();
+
                         }
                         else if (selectedKundeHåndteringsMenu == "Fyn")
                         {
@@ -51,6 +49,8 @@ namespace Console_Menu
                         }
                         else if (selectedKundeHåndteringsMenu == "Tilbage")
                         {
+                            Console.Clear();
+                            MenuOpsætning.index = 0;
                             break;
                         }
                     }
@@ -64,57 +64,6 @@ namespace Console_Menu
                     Environment.Exit(0);
                 }
             }
-        }
-
-        private static string TegnMenu(List<string> items)
-        {
-            for (int i = 0; i < items.Count; i++)
-            {
-                if (i == index)
-                {
-                    Console.BackgroundColor = ConsoleColor.Gray;
-                    Console.ForegroundColor = ConsoleColor.Black;
-
-                    Console.WriteLine(items[i]);
-                }
-                else
-                {
-                    Console.WriteLine(items[i]);
-                }
-                Console.ResetColor();
-            }
-
-            ConsoleKeyInfo ckey = Console.ReadKey();
-
-            if (ckey.Key == ConsoleKey.DownArrow)
-            {
-                if (index == items.Count - 1)
-                {
-                    //index = 0; //Remove the comment to return to the topmost item in the list
-                }
-                else { index++; }
-            }
-            else if (ckey.Key == ConsoleKey.UpArrow)
-            {
-                if (index <= 0)
-                {
-                    //index = menuItem.Count - 1; //Remove the comment to return to the item in the bottom of the list
-                }
-                else { index--; }
-            }
-            else if (ckey.Key == ConsoleKey.Enter)
-            {
-
-                Console.Clear();
-                return items[index];
-            }
-            else
-            {
-                return "";
-            }
-
-            Console.Clear();
-            return "";
         }
     }
 }
